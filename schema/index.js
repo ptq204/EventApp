@@ -27,6 +27,8 @@ input SpeakerInput {
 
 type User {
   id: ID,
+  GoogleID: String,
+  FacebookID: String,
   Username: String,
   Birthdate: String,
   Phone: String,

@@ -9,7 +9,8 @@ const {DBLINK, PORT} = require('./config/config');
 // normal authentication
 const getUser = require('./middleware/normalAuth');
 // facebook authentication
-const passport = require('./middleware/facebookAuth');
+const fbPassport = require('./middleware/facebookAuth');
+const ggPassport = require('./middleware/googleAuth');
 
 mongoose.connect(DBLINK);
 mongoose.connection.once('open', () => {
@@ -22,15 +23,25 @@ app.get('/', (req, res) => {
   res.send('Event app server');
 });
 
-app.get('/flogin',
-  passport.authenticate('facebook'));
+app.get('/fblogin',
+  fbPassport.authenticate('facebook'));
 
 app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { session: false }),
+  fbPassport.authenticate('facebook', { session: false }),
   function(req, res) {
   	// Successful authentication, redirect home.
   	res.redirect('/');
-});
+	});
+
+app.get('/ggLogin',
+  ggPassport.authenticate('google', { scope: ['profile', 'email'] }));
+
+app.get('/auth/google/callback', 
+  ggPassport.authenticate('google', { session: false }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+	});
 
 const schema = makeExecutableSchema({typeDefs, resolvers});
 
