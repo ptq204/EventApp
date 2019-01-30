@@ -34,7 +34,10 @@ app.get('/auth/facebook/callback',
 	});
 
 app.get('/ggLogin',
-  ggPassport.authenticate('google', { scope: ['profile', 'email'] }));
+  ggPassport.authenticate('google', { scope: ['profile','email']}),
+  function(req, res){
+    res.redirect('/');
+  });
 
 app.get('/auth/google/callback', 
   ggPassport.authenticate('google', { session: false }),
