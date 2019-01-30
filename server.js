@@ -6,7 +6,10 @@ const mongoose = require('mongoose');
 const typeDefs = require('./schema/index');
 const resolvers = require('./resolvers/index');
 const {DBLINK, PORT} = require('./config/config');
-const getUser = require('./middleware/normalAuth'); 
+// normal authentication
+const getUser = require('./middleware/normalAuth');
+// facebook authentication
+const passport = require('./middleware/facebookAuth');
 
 mongoose.connect(DBLINK);
 mongoose.connection.once('open', () => {
@@ -17,6 +20,16 @@ const app = express();
 
 app.get('/', (req, res) => {
   res.send('Event app server');
+});
+
+app.get('/flogin',
+  passport.authenticate('facebook'));
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { session: false }),
+  function(req, res) {
+  	// Successful authentication, redirect home.
+  	res.redirect('/');
 });
 
 const schema = makeExecutableSchema({typeDefs, resolvers});
