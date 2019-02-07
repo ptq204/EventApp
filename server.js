@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const typeDefs = require('./schema/index');
 const resolvers = require('./resolvers/index');
 const {DBLINK, PORT} = require('./config/config');
+
 // normal authentication
 const getUser = require('./middleware/normalAuth');
 // facebook authentication
