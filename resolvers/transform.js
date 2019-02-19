@@ -14,9 +14,12 @@ const events = async events => {
 
 const transformEvent = event => {
   var category = {
-    0: 'mobile',
-	  1: 'data_science',
-	  2: 'web'
+    0: 'Mobile',
+	  1: 'Data Science',
+    2: 'Web',
+    3: 'Machine Learning',
+    4: 'Deep Learning',
+    5: 'Big Data'
   }
   var status = {
     0: 'waiting',
