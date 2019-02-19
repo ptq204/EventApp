@@ -27,7 +27,7 @@ module.exports = {
     },
 
     eventsById: async (parent, args, req) => {
-      const event =await Event.find({_id: args._id});
+      const event =await Event.findById(args._id);
       if(event !== undefined){
         return event;
       }

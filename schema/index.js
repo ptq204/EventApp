@@ -50,6 +50,7 @@ type Event {
   Category: String,
   Types: [String],
   PosterLink: String,
+  Images: [String],
   BookLink: String,
   BookClickCount: Int,
   Status: String,

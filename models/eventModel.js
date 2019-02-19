@@ -10,6 +10,7 @@ const EventSchema = new schema({
   Types: [String],
   Speakers: [{}],
   PosterLink: String,
+  Images: [String],
   BookLink: String,
   BookClickCount: Number,
   Status: Number,

@@ -57,12 +57,9 @@ EventSchema = {
   // find event by ID
   findById: async (id) => {
     try{
-      return Event.findById(id).populate('Host').populate('Creator').then(events => {
+      return Event.findById(id).populate('Host').populate('Creator').then(event => {
         //console.log(events);
-        return events.map(event => {
-          //event.DateTime = dateToString(event.DateTime);
-          return transformEvent(event);
-        });
+        return transformEvent(event);
       });
     }catch(err){
       throw err;
