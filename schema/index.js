@@ -41,18 +41,18 @@ type User {
 }
 
 type Event {
-  id: ID,
+  _id: ID,
 	Title: String,
   DateTime: String,
   Address: String,
   Description: String,
   Host: Host,
-  Category: EventCategory,
+  Category: String,
   Types: [String],
   PosterLink: String,
   BookLink: String,
   BookClickCount: Int,
-  Status: EventStatus,
+  Status: String,
   Speakers: [Speaker],
   Creator: User
 }
@@ -70,6 +70,7 @@ type Host {
 type Query {
   events: [Event]
   eventsByCategory(category: Int!): [Event]
+  waitingEvents: [Event]
   myEvents: [Event]
   login(email: String!, password: String!): String
   users: [User!]
@@ -96,7 +97,21 @@ type Mutation {
     booklink: String,
     speakers: [SpeakerInput],
   ): Event
-  removeEvent(id: ID!): Event
+  updateEvent(
+    id: String!,
+    title: String,
+    dateTime: String,
+    address: String,
+    description: String,
+    category: Int,
+    types: [String],
+    speakers: [SpeakerInput],
+    bookLink: String,
+    posterLink: String,
+    bookClickCount: Int,
+    status: Int
+  ): Event
+  removeEvent(id: String!): Event
   addHost(
     hostname: String!,
     description: String,

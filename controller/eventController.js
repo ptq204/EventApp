@@ -1,5 +1,7 @@
 const Event = require('../models/eventModel');
 const { dateToString }  = require('../helper/date');
+const { transformEvent } = require('../resolvers/transform');
+const { ADMIN_ROLE, USER_ROLE } = require('../config/config');
 
 EventSchema = {
   
@@ -41,10 +43,10 @@ EventSchema = {
   find: async (obj) => {
     try{
       return Event.find(obj).populate('Host').populate('Creator').then(events => {
-        console.log(events);
+        //console.log(events);
         return events.map(event => {
-          event.DateTime = dateToString(event.DateTime);
-          return event;
+          //event.DateTime = dateToString(event.DateTime);
+          return transformEvent(event);
         });
       });
     }catch(err){
@@ -56,9 +58,10 @@ EventSchema = {
   findById: async (id) => {
     try{
       return Event.findById(id).populate('Host').populate('Creator').then(events => {
-        console.log(events);
+        //console.log(events);
         return events.map(event => {
-          event.DateTime = dateToString(event.DateTime);
+          //event.DateTime = dateToString(event.DateTime);
+          return transformEvent(event);
         });
       });
     }catch(err){
@@ -66,6 +69,48 @@ EventSchema = {
     }
   },
   
+  update: async (args, user) => {
+
+    try{
+      var objUpdate = {};
+    
+      const event = await Event.findOne({_id: args.id}, (err, ev) => {
+        if(err){
+          console.log('Cannot find this event!');
+          return null;
+        }
+        return ev;
+      });
+
+      if(user.role === ADMIN_ROLE || (user.role === USER_ROLE && user._id === event.Creator.toString())){
+        if(args.title) objUpdate.Title = args.title;
+        if(args.dateTime) objUpdate.DateTime = args.dateTime;
+        if(args.address) objUpdate.Address = args.address;
+        if(args.description) objUpdate.Description = args.description;
+        if(args.category) objUpdate.Category = args.category;
+        if(args.types) objUpdate.Types = args.types;
+        if(args.speakers) objUpdate.Speakers = args.speakers;
+        if(args.bookLink) objUpdate.BookLink = args.bookLink;
+        if(args.posterLink) objUpdate.PosterLink = args.posterLink;
+        if(args.bookClickCount) objUpdate.BookClickCount = args.bookClickCount;
+        if(args.status) objUpdate.Status = args.status;
+        
+        return Event.findOneAndUpdate({_id: args.id}, objUpdate, {'new': true}, (err, obj) => {
+          if(err) throw err;
+          console.log('Updated an event!');
+          return obj;
+        })
+      }
+      else{
+        console.log('This user does not hold this event!');
+        return null;
+      }
+
+    }catch(err){
+      throw err;
+    }
+  },
+
   // Remove an event
   removeEvent: async (id) => {
     Event.remove({_id: id}, (err) => {
