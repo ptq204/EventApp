@@ -15,7 +15,12 @@ const UserSchema = new schema({
 	AvatarLink: String,
 	SocialLink: String,
 	Role: String,
-	Bookmarks: [String],
+	Bookmarks: [
+		{
+			type: schema.Types.ObjectId,
+			ref: 'Event'
+		}
+	],
 	CreatedEvents: [
 		{
 			type: schema.Types.ObjectId,
