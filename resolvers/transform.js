@@ -12,10 +12,24 @@ const events = async events => {
   }
 }
 
-const transformEvent = async event => {
+const transformEvent = event => {
+  var category = {
+    0: 'mobile',
+	  1: 'data_science',
+	  2: 'web'
+  }
+  var status = {
+    0: 'waiting',
+    1: 'approved'
+  }
   try{
-    event.DateTime = dateToString(event.DateTime);
-    return event;
+    const tmp = {
+      ...event._doc,
+      Category: category[event.Category],
+      Status: status[event.Status]
+    }
+    console.log(tmp);
+    return tmp;
   }catch(err){
     throw err;
   }

@@ -11,6 +11,14 @@ module.exports = {
       }
       else return null;
     },
+
+    waitingEvents: async () => {
+      const events = await Event.find({Status: 0});
+      if(events !== undefined){
+        return events;
+      }
+      else return null;
+    },
   
     eventsByCategory: async (parent, args, req) => {
       const events = await Event.find({Category: args.category});
@@ -35,6 +43,10 @@ module.exports = {
       return Event.addEvent(args, req.user._id);
     },
     
+    updateEvent: (parent, args, req) => {
+      return Event.update(args, req.user);
+    },
+
     removeEvent: (parent, args, req) => {
       return Event.removeEvent(args.id);
     }
