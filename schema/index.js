@@ -69,7 +69,8 @@ type Host {
 
 type Query {
   events: [Event]
-  eventsByCategory(category: Int!): [Event]
+  eventsById(_id: String!): Event
+  eventsByCategory(category: String!): [Event]
   waitingEvents: [Event]
   myEvents: [Event]
   login(email: String!, password: String!): String
