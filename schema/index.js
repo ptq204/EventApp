@@ -25,6 +25,11 @@ input SpeakerInput {
 	AvatarLink: String,
 }
 
+input SortEventBy {
+  field: String!,
+  direction: Int!
+}
+
 type User {
   id: ID,
   GoogleID: String,
@@ -68,15 +73,30 @@ type Host {
   UserID: String!
 }
 
+type Edge {
+  cursor: String!
+  node: Event
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+}
+
+type ResultCursor {
+  edges: [Edge]!
+  pageInfo: PageInfo
+  totalCount: Int!
+}
+
 type Query {
-  events: [Event]
+  events(sort: [SortEventBy!], first: Int, after: String): [Event]
   eventsById(_id: String!): Event
   eventsByCategory(category: String!): [Event]
-  waitingEvents: [Event]
+  waitingEvents(sort: [SortEventBy!]): [Event]
   myEvents: [Event]
   login(email: String!, password: String!): String
   users: [User!]
-  
 }
 
 type Mutation {

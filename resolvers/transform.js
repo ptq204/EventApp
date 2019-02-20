@@ -28,17 +28,27 @@ const transformEvent = event => {
   try{
     const tmp = {
       ...event._doc,
+      DateTime: dateToString(event.DateTime),
       Category: category[event.Category],
       Status: status[event.Status]
     }
-    console.log(tmp);
     return tmp;
   }catch(err){
     throw err;
   }
 }
 
+const transformSortOptions = sorts => {
+  var obj = {}
+  for(let i = 0; i < sorts.length; i++){
+    obj[sorts[i].field] = sorts[i].direction
+  }
+  console.log(obj);
+  return obj;
+}
+
 module.exports = {
   events: events,
-  transformEvent: transformEvent
+  transformEvent: transformEvent,
+  transformSortOptions: transformSortOptions
 }
