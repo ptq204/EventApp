@@ -1,6 +1,12 @@
 const Host = require('../models/hostModel');
 
 HostSchema = {
+  find: async (opts) => {
+    return Host.find(opts).then(host => {
+      return host;
+    })
+  },
+
   addHost: async (args, userid) => {
 
     var info = {};
@@ -8,7 +14,7 @@ HostSchema = {
     if(args.hostname) info.HostName = args.hostname;
     if(args.description) info.Description = args.description;
     if(args.website) info.Website = args.website;
-    if(args.email) info.Email = args.email;
+    if(args.mail) info.Mail = args.mail;
     if(args.phone) info.Phone = args.phone;
     info.UserID = userid;
   

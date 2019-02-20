@@ -15,7 +15,7 @@ EventSchema = {
         DateTime: new Date(args.datetime),
         Address: args.address,
         Description: args.description,
-        HostID: args.hostid,
+        Host: args.host,
         Creator: userid,
         Category: args.category,
         Types: args.types,

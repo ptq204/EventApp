@@ -8,7 +8,7 @@ const HostSchema = new schema({
     HostName: String,
     Description: String,
     Website: String,
-    Email: String,
+    Mail: String,
     Phone: String,
     InEvents: [
         {
