@@ -18,8 +18,8 @@ const StatusMap = {
 
 module.exports = {
   Query: {
-    events: async () => {
-      const events = await Event.find({});
+    events: async (parent, args, req) => {
+      const events = await Event.find({}, args);
       if(events !== undefined){
         return events;
       }
@@ -34,8 +34,8 @@ module.exports = {
       else return null;
     },
 
-    waitingEvents: async () => {
-      const events = await Event.find({Status: StatusMap.waiting});
+    waitingEvents: async (parent, args, req) => {
+      const events = await Event.find({Status: StatusMap.waiting}, args);
       if(events !== undefined){
         return events;
       }
@@ -43,7 +43,7 @@ module.exports = {
     },
   
     eventsByCategory: async (parent, args, req) => {
-      const events = await Event.find({Category: CategoryMap[args.category]});
+      const events = await Event.find({Category: CategoryMap[args.category]}, args);
       if(events !== undefined){
         return events;
       }
@@ -51,7 +51,7 @@ module.exports = {
     },
   
     myEvents: async (parent, args, req) => {
-      const events = await Event.find({Creator: req.user._id});
+      const events = await Event.find({Creator: req.user._id}, args);
       if(events !== undefined){
         return events;
       }

@@ -11,10 +11,10 @@ const HostSchema = new schema({
     Email: String,
     Phone: String,
     InEvents: [
-			{
-				type: schema.Types.ObjectId,
-				ref: 'Event'
-			}
+        {
+            type: schema.Types.ObjectId,
+            ref: 'Event'
+        }
     ]
 });
 

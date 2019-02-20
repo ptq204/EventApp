@@ -1,6 +1,6 @@
 const Event = require('../models/eventModel');
 const { dateToString }  = require('../helper/date');
-const { transformEvent } = require('../resolvers/transform');
+const { transformEvent, transformSortOptions } = require('../resolvers/transform');
 const { ADMIN_ROLE, USER_ROLE } = require('../config/config');
 
 EventSchema = {
@@ -40,9 +40,10 @@ EventSchema = {
   },
 
   // find event
-  find: async (obj) => {
+  find: async (opts, args) => {
+    var sortOpts = args.sort ? transformSortOptions(args.sort) : {};
     try{
-      return Event.find(obj).populate('Host').populate('Creator').then(events => {
+      return Event.find(opts).populate('Host').populate('Creator').sort(sortOpts).then(events => {
         //console.log(events);
         return events.map(event => {
           //event.DateTime = dateToString(event.DateTime);
