@@ -6,7 +6,7 @@ const EventSchema = new schema({
   DateTime: Date,
   Address: String,
 	Description: String,
-	Category: Number,
+	Category: [Number],
   Types: [String],
   Speakers: [{}],
   PosterLink: String,

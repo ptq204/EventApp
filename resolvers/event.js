@@ -43,7 +43,7 @@ module.exports = {
     },
   
     eventsByCategory: async (parent, args, req) => {
-      const events = await Event.find({Category: CategoryMap[args.category]}, args);
+      const events = await Event.findByCategory(CategoryMap[args.category], args);
       if(events !== undefined){
         return events;
       }

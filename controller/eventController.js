@@ -67,6 +67,19 @@ EventSchema = {
     }
   },
   
+  // find by Category
+  findByCategory: async (category, args) => {
+    try{
+      return Event.find({Category: {$all: [category]}}).then(events => {
+        return events.map(event => {
+          return transformEvent(event);
+        })
+      })
+    }catch(err){
+      throw err;
+    }
+  },
+
   update: async (args, user) => {
 
     try{

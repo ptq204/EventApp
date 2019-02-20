@@ -29,7 +29,9 @@ const transformEvent = event => {
     const tmp = {
       ...event._doc,
       DateTime: dateToString(event.DateTime),
-      Category: category[event.Category],
+      Category: event.Category.map(catg => {
+        return category[catg];
+      }),
       Status: status[event.Status]
     }
     return tmp;
