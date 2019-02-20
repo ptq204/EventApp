@@ -127,7 +127,7 @@ type Mutation {
     dateTime: String,
     address: String,
     description: String,
-    category: [Int!]!,
+    category: [Int],
     types: [String],
     speakers: [SpeakerInput],
     bookLink: String,
