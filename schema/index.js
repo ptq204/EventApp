@@ -31,7 +31,7 @@ input SortEventBy {
 }
 
 type User {
-  id: ID,
+  _id: ID,
   GoogleID: String,
   FacebookID: String,
   Username: String,
@@ -64,13 +64,14 @@ type Event {
 }
 
 type Host {
-  id: ID!,
+  _id: ID!,
   HostName: String!,
   Description: String,
   Mail: String,
   Website: String,
   Phone: String,
   UserID: String!
+  InEvents: Event
 }
 
 type Edge {
@@ -97,6 +98,7 @@ type Query {
   myEvents: [Event]
   login(email: String!, password: String!): String
   users: [User!]
+  hosts: [Host!]
 }
 
 type Mutation {
@@ -112,7 +114,7 @@ type Mutation {
     datetime: String!,
     address: String,
     description: String,
-    hostid: String,
+    host: String,
     category: [Int!]!,
     types: [String],
     posterlink: String,
