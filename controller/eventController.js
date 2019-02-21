@@ -70,7 +70,7 @@ EventSchema = {
   // find by Category
   findByCategory: async (category, args) => {
     try{
-      return Event.find({Category: {$all: [category]}}).then(events => {
+      return Event.find({Category: {$all: [category]}}).populate('Host').populate('Creator').then(events => {
         return events.map(event => {
           return transformEvent(event);
         })
