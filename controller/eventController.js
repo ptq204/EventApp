@@ -3,6 +3,15 @@ const { dateToString }  = require('../helper/date');
 const { transformEvent, transformSortOptions } = require('../resolvers/transform');
 const { ADMIN_ROLE, USER_ROLE } = require('../config/config');
 
+const CategoryMap = {
+  'Mobile': 0,
+	'Data Science': 1,
+  'Web': 2,
+  'Machine Learning': 3,
+  'Deep Learning': 4,
+  'Big Data': 5
+}
+
 EventSchema = {
   
   // Create new event
@@ -42,6 +51,8 @@ EventSchema = {
   // find event
   find: async (opts, args) => {
     var sortOpts = args.sort ? transformSortOptions(args.sort) : {};
+    if(args.category) opts.Category = {$all: [CategoryMap[args.category]]};
+
     try{
       return Event.find(opts).populate('Host').populate('Creator').sort(sortOpts).then(events => {
         //console.log(events);

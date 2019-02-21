@@ -2,14 +2,6 @@ const Event = require('../controller/eventController');
 const { transformEvent } = require('./transform');
 const { dateToString } = require('../helper/date');
 
-const CategoryMap = {
-  'Mobile': 0,
-	'Data Science': 1,
-  'Web': 2,
-  'Machine Learning': 3,
-  'Deep Learning': 4,
-  'Big Data': 5
-}
 
 const StatusMap = {
   'waiting': 0,
@@ -42,13 +34,13 @@ module.exports = {
       else return null;
     },
   
-    eventsByCategory: async (parent, args, req) => {
+    /*eventsByCategory: async (parent, args, req) => {
       const events = await Event.findByCategory(CategoryMap[args.category], args);
       if(events !== undefined){
         return events;
       }
       else return null;
-    },
+    },*/
   
     myEvents: async (parent, args, req) => {
       const events = await Event.find({Creator: req.user._id}, args);

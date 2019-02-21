@@ -91,7 +91,7 @@ type ResultCursor {
 }
 
 type Query {
-  events(sort: [SortEventBy!], first: Int, after: String): [Event]
+  events(category: String, sort: [SortEventBy!], first: Int, after: String): [Event]
   eventsById(_id: String!): Event
   eventsByCategory(category: String!): [Event]
   waitingEvents(sort: [SortEventBy!]): [Event]
