@@ -93,8 +93,7 @@ type ResultCursor {
 type Query {
   events(category: String, sort: [SortEventBy!], first: Int, after: String): [Event]
   eventsById(_id: String!): Event
-  eventsByCategory(category: String!): [Event]
-  waitingEvents(sort: [SortEventBy!]): [Event]
+  waitingEvents(category: String, sort: [SortEventBy!]): [Event]
   myEvents: [Event]
   login(email: String!, password: String!): String
   users: [User!]
