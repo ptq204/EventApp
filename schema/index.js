@@ -31,7 +31,7 @@ input SortEventBy {
 }
 
 type User {
-  _id: ID,
+  _id: ID!,
   GoogleID: String,
   FacebookID: String,
   Username: String,
@@ -46,13 +46,13 @@ type User {
 }
 
 type Event {
-  _id: ID,
-	Title: String,
-  DateTime: String,
+  _id: ID!,
+	Title: String!,
+  DateTime: String!,
   Address: String,
   Description: String,
   Host: Host,
-  Category: [String],
+  Category: [String!]!,
   Types: [String],
   PosterLink: String,
   Images: [String],
@@ -72,6 +72,12 @@ type Host {
   Phone: String,
   UserID: String!
   InEvents: Event
+}
+
+type Category {
+  _id: ID!,
+  Name: String!,
+  Value: Int!
 }
 
 type Edge {
@@ -98,6 +104,7 @@ type Query {
   login(email: String!, password: String!): String
   users: [User!]
   hosts: [Host!]
+  categories: [Category!]!
 }
 
 type Mutation {
@@ -142,5 +149,6 @@ type Mutation {
     website: String,
     phone: String,
   ): Host
+  addCategory(name: String!, value: Int!): Category
 }
 `;

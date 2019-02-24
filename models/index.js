@@ -3,5 +3,6 @@
 module.exports = {
   userModel: require('./userModel'),
   eventModel: require('./eventModel'),
-  hostModel: require('./hostModel')
+  hostModel: require('./hostModel'),
+  categoryModel: require('./categoryModel')
 }
