@@ -53,7 +53,6 @@ module.exports = {
   
   Mutation: {
     addEvent: (parent, args, req) => {
-      console.log('eqweqw');
       return Event.addEvent(args, req.user._id);
     },
     
