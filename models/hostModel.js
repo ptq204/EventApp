@@ -10,12 +10,11 @@ const HostSchema = new schema({
     Website: String,
     Mail: String,
     Phone: String,
-    InEvents: [
+    InEvents: 
         {
-            type: schema.Types.ObjectId,
+            type: [schema.Types.ObjectId],
             ref: 'Event'
         }
-    ]
 });
 
 const Host = mongoose.model('Host', HostSchema);

@@ -70,7 +70,11 @@ UserSchema = {
     }catch(err){
       throw err;
     }
-  }
+	},
+	
+	find: async (opts, args) => {
+		
+	}
 }
 
 module.exports = UserSchema;
