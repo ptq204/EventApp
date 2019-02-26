@@ -4,6 +4,15 @@ module.exports = {
   find: async (opts) => {
     try{
       return Category.find(opts).then(categories => {
+        for(let i =0; i < categories.length; i++){
+          console.log(categories[i]['Name'])
+          if(categories[i]['Name'] === 'New'){
+            let tmp = categories[i];
+            categories.splice(i, 1);
+            categories.unshift(tmp);
+            break;
+          }
+        }
         return categories;
       });
     }catch(err){
