@@ -4,7 +4,6 @@ module.exports = {
   Query: {
     categories: async (parent, args, req) => {
       const categories = Category.find({});
-      console.log(categories);
       if(categories !== undefined){
         return categories;
       }

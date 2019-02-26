@@ -100,7 +100,7 @@ type Query {
   events(category: String, sort: [SortEventBy!], first: Int, after: String): [Event]
   eventsById(_id: String!): Event
   waitingEvents(category: String, sort: [SortEventBy!]): [Event]
-  myEvents: [Event]
+  myEvents(status: String): [Event]
   login(email: String!, password: String!): String
   users: [User!]
   hosts: [Host!]

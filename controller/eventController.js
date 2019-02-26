@@ -12,6 +12,11 @@ const CategoryMap = {
   'Big Data': 5
 }
 
+const StatusMap = {
+  'waiting': 0,
+  'approved': 1
+}
+
 EventSchema = {
   
   // Create new event
@@ -52,7 +57,7 @@ EventSchema = {
   find: async (opts, args) => {
     var sortOpts = args.sort ? transformSortOptions(args.sort) : {};
     if(args.category) opts.Category = {$all: [CategoryMap[args.category]]};
-
+    if(args.status) opts.Status = StatusMap[args.status];
     try{
       return Event.find(opts).populate('Host').populate('Creator').sort(sortOpts).then(events => {
         //console.log(events);
