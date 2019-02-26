@@ -118,7 +118,7 @@ type Mutation {
   addEvent(
     title: String!,
     datetime: String!,
-    address: String,
+    address: String!,
     description: String,
     host: String,
     category: [Int!]!,
