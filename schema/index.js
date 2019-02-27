@@ -116,6 +116,7 @@ type Mutation {
     phone: String,
     social: String
   ): User
+  authGoogleUser(token: String!): String
   addEvent(
     title: String!,
     datetime: String!,
