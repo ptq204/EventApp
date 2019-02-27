@@ -27,6 +27,7 @@ EventSchema = {
       const event = await new Event({
         Title: args.title,
         DateTime: new Date(args.datetime),
+        Time: args.time,
         Address: args.address,
         Description: args.description,
         Host: args.host,
@@ -59,7 +60,7 @@ EventSchema = {
     if(args.category) opts.Category = {$all: [CategoryMap[args.category]]};
     if(args.status) opts.Status = StatusMap[args.status];
     try{
-      return Event.find(opts).populate('Host').populate('Creator').sort(sortOpts).then(events => {
+      return Event.find(opts, {}, {skip: 4, limit: 3, sort: sortOpts}).populate('Host').populate('Creator').then(events => {
         //console.log(events);
         return events.map(event => {
           //event.DateTime = dateToString(event.DateTime);

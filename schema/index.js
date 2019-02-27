@@ -49,6 +49,7 @@ type Event {
   _id: ID!,
 	Title: String!,
   DateTime: String!,
+  Time: String,
   Address: String,
   Description: String,
   Host: Host,
@@ -118,6 +119,7 @@ type Mutation {
   addEvent(
     title: String!,
     datetime: String!,
+    time: String,
     address: String!,
     description: String,
     host: String,

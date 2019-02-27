@@ -8,6 +8,9 @@ const EventSchema = new schema({
   DateTime: {
     type: Date
   },
+  Time: {
+    type: String
+  },
   Address: {
     type: String
   },
