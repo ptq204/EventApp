@@ -1,7 +1,8 @@
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
+const jwksRSa = require('jwks-rsa');
 const bcryptjs = require('bcryptjs');
-const {SECRET, USER_ROLE} = require('../config/config');
+const {SECRET, USER_ROLE, GOOGLE_USER} = require('../config/config');
 
 UserSchema = {
   createUser: async (username, password, email, phone, social) => {
@@ -34,7 +35,62 @@ UserSchema = {
     }catch(err){
       throw err;
     }
-  },
+	},
+	
+	authGoogleUser: async (token) => {
+
+		try{
+			var options = {
+				//algorithm: ['HS256']
+				algorithm: [ 'RS256','RS384','RS512','ES256','ES384','ES512' ]
+			}
+
+			const user_info = jwt.decode(token, options);
+
+			if(!user_info['email']){
+				console.log('Sign in with Google fail. Invalid user!');
+				return null;
+			}
+
+			if(!user_info['email_verified']){
+				console.log('User email not verified!');
+				return null;
+			}
+
+			let user = {}; 
+			user = await User.findOne({Email: user_info.email});
+
+			if(user){
+				console.log('This account has existed!');
+			}
+
+			else{
+				user = await new User({
+					Username: user_info.name,
+					Email: user_info.email,
+					GoogleID: user_info.sub,
+					AvatarLink: user_info.picture,
+					Role: GOOGLE_USER
+				}).save();
+			}
+			
+			const newToken = jwt.sign(
+				{
+					_id: user._id,
+					email: user.Email,
+					role: user.Role
+				},
+				SECRET,
+				{algorithm: 'HS256', expiresIn: '30d'}
+			);
+			console.log('Created new Google user!');
+			
+			return newToken;
+
+		}catch(err){
+			throw err;
+		}
+	},
 
   auth: async (args) => {
   
